@@ -1,0 +1,733 @@
+[
+  {
+    "GET \\/clusters\\/[a-zA-Z0-9_.-]*": {
+      "parameters": {
+        "path": [
+          {
+            "clusterName": {
+              "type": "string",
+              "required": true
+            }
+          }
+        ]
+      },
+      "headers": [
+        {
+          "Authorization": {
+            "type": "string"
+          }
+        }
+      ],
+      "responses": {
+        "200": {
+          "allOf": [
+            {
+              "type": "object",
+              "required": [
+                "zookeeper",
+                "7mada"
+              ],
+              "properties": {
+                "7mada": {
+                  "type": "string"
+                },
+                "auto_start_services": {
+                  "type": "string",
+                  "enum": [
+                    "Enabled",
+                    "Disabled",
+                    "ForceDisabled"
+                  ],
+                  "nullable": true
+                },
+                "admin_alerts": {
+                  "type": "string",
+                  "enum": [
+                    "Enabled",
+                    "Disabled",
+                    "ForceDisabled"
+                  ],
+                  "nullable": true
+                },
+                "zookeeper": {
+                  "type": "string"
+                },
+                "enable_spark": {
+                  "type": "boolean",
+                  "default": false,
+                  "nullable": true
+                },
+                "spark_master": {
+                  "type": "string",
+                  "nullable": true
+                },
+                "spark_app_memory": {
+                  "type": "integer",
+                  "nullable": true
+                },
+                "spark_app_cores": {
+                  "type": "integer",
+                  "nullable": true
+                },
+                "spark_app_executers": {
+                  "type": "integer",
+                  "nullable": true
+                },
+                "spark_ds_port": {
+                  "type": "integer",
+                  "nullable": true
+                },
+                "db_type": {
+                  "type": "string",
+                  "enum": [
+                    "oracle",
+                    "mysql",
+                    "derby"
+                  ],
+                  "nullable": true
+                },
+                "db_accounts": {
+                  "type": "string",
+                  "enum": [
+                    "standard",
+                    "separate"
+                  ],
+                  "default": "standard",
+                  "nullable": true
+                },
+                "db_connection": {
+                  "type": "string",
+                  "nullable": true
+                },
+                "db_user": {
+                  "type": "string",
+                  "nullable": true
+                },
+                "db_pw": {
+                  "type": "string",
+                  "nullable": true
+                },
+                "migrations_user": {
+                  "type": "string",
+                  "nullable": true
+                },
+                "migrations_pw": {
+                  "type": "string",
+                  "nullable": true
+                },
+                "admin_email": {
+                  "type": "string",
+                  "nullable": true
+                },
+                "path": {
+                  "type": "string",
+                  "nullable": true
+                },
+                "config": {
+                  "type": "object",
+                  "additionalProperties": {
+                    "type": "string"
+                  },
+                  "nullable": true
+                }
+              }
+            },
+            {
+              "type": "object",
+              "properties": {
+                "has_notebook": {
+                  "type": "boolean",
+                  "default": false,
+                  "nullable": true
+                },
+                "need_upgrade": {
+                  "type": "boolean",
+                  "nullable": true
+                },
+                "version": {
+                  "type": "integer",
+                  "format": "int64",
+                  "nullable": true
+                },
+                "name": {
+                  "type": "string",
+                  "nullable": true
+                },
+                "nodes": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "string"
+                      },
+                      "version": {
+                        "type": "integer",
+                        "format": "int64"
+                      },
+                      "cluster_name": {
+                        "type": "string"
+                      },
+                      "node_version": {
+                        "type": "string"
+                      },
+                      "host": {
+                        "type": "string"
+                      },
+                      "agent_port": {
+                        "type": "integer"
+                      },
+                      "analytics_default_memory": {
+                        "type": "integer"
+                      },
+                      "loader_default_memory": {
+                        "type": "integer"
+                      },
+                      "status": {
+                        "type": "string",
+                        "enum": [
+                          "online",
+                          "offline"
+                        ]
+                      },
+                      "type": {
+                        "type": "string",
+                        "enum": [
+                          "LOCAL",
+                          "HA",
+                          "WEB"
+                        ]
+                      },
+                      "node_handshake_status": {
+                        "type": "string",
+                        "enum": [
+                          "CMC_UPGRADE",
+                          "NODE_UPGRADE",
+                          "COMPATIBLE",
+                          "NODE_DOWN",
+                          "NOT_COMPATIBLE"
+                        ]
+                      },
+                      "services": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "node_name": {
+                              "type": "string"
+                            },
+                            "name": {
+                              "type": "string"
+                            },
+                            "version": {
+                              "type": "integer",
+                              "format": "int64"
+                            },
+                            "need_upgrade": {
+                              "type": "boolean"
+                            },
+                            "node_version": {
+                              "type": "string"
+                            },
+                            "status": {
+                              "type": "string",
+                              "enum": [
+                                "Starting",
+                                "Started",
+                                "Stopping",
+                                "Stopped",
+                                "Error",
+                                "Processing",
+                                "Not Responding",
+                                "Stopping Tenants",
+                                "Starting Tenants",
+                                "Terminated Unexpectedly",
+                                "N/A"
+                              ]
+                            },
+                            "cluster_name": {
+                              "type": "string"
+                            },
+                            "assigned_on_heap_memory": {
+                              "type": "integer",
+                              "format": "int64"
+                            },
+                            "assigned_off_heap_memory": {
+                              "type": "integer",
+                              "format": "int64"
+                            },
+                            "used_on_heap_memory": {
+                              "type": "integer",
+                              "format": "int64"
+                            },
+                            "used_off_heap_memory": {
+                              "type": "integer",
+                              "format": "int64"
+                            },
+                            "pooled_memory": {
+                              "type": "integer",
+                              "format": "int64"
+                            },
+                            "URL": {
+                              "type": "string"
+                            },
+                            "service_handshake_status": {
+                              "type": "string",
+                              "enum": [
+                                "CMC_UPGRADE",
+                                "NODE_UPGRADE",
+                                "COMPATIBLE",
+                                "NODE_DOWN",
+                                "NOT_COMPATIBLE"
+                              ]
+                            },
+                            "config": {
+                              "type": "object",
+                              "additionalProperties": {
+                                "type": "object",
+                                "properties": {
+                                  "displayName": {
+                                    "type": "string"
+                                  },
+                                  "currentValue": {
+                                    "type": "string"
+                                  },
+                                  "dirtyValue": {
+                                    "type": "string"
+                                  },
+                                  "dirty": {
+                                    "type": "boolean"
+                                  },
+                                  "requiresRestart": {
+                                    "type": "boolean"
+                                  },
+                                  "readOnly": {
+                                    "type": "boolean",
+                                    "default": false
+                                  },
+                                  "dependsOn": {
+                                    "type": "string"
+                                  },
+                                  "displayOrder": {
+                                    "type": "integer"
+                                  },
+                                  "defaultValue": {
+                                    "type": "string"
+                                  },
+                                  "hasMinimum": {
+                                    "type": "boolean"
+                                  },
+                                  "hasMaximum": {
+                                    "type": "boolean"
+                                  },
+                                  "minimumValue": {
+                                    "type": "integer"
+                                  },
+                                  "maximumValue": {
+                                    "type": "integer"
+                                  },
+                                  "type": {
+                                    "type": "string"
+                                  },
+                                  "helpMessage": {
+                                    "type": "string"
+                                  },
+                                  "allowedValues": {
+                                    "type": "array",
+                                    "items": {
+                                      "type": "string"
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            "validation_message": {
+                              "type": "object",
+                              "required": [
+                                "message",
+                                "id"
+                              ],
+                              "properties": {
+                                "message": {
+                                  "type": "string"
+                                },
+                                "id": {
+                                  "type": "integer",
+                                  "format": "int64",
+                                  "minimum": 1
+                                },
+                                "actionName": {
+                                  "type": "string",
+                                  "nullable": true
+                                },
+                                "rectificationAction": {
+                                  "type": "object",
+                                  "required": [
+                                    "names",
+                                    "action"
+                                  ],
+                                  "properties": {
+                                    "names": {
+                                      "type": "array",
+                                      "items": {
+                                        "type": "string"
+                                      },
+                                      "uniqueItems": true
+                                    },
+                                    "action": {
+                                      "type": "string",
+                                      "enum": [
+                                        "start",
+                                        "stop",
+                                        "kill",
+                                        "restart"
+                                      ]
+                                    },
+                                    "props": {
+                                      "type": "object",
+                                      "additionalProperties": {
+                                        "type": "string"
+                                      },
+                                      "nullable": true
+                                    }
+                                  },
+                                  "nullable": true
+                                }
+                              },
+                              "nullable": true
+                            }
+                          }
+                        }
+                      },
+                      "notebook": {
+                        "type": "object",
+                        "properties": {
+                          "port": {
+                            "type": "integer"
+                          },
+                          "name": {
+                            "type": "string"
+                          },
+                          "node_name": {
+                            "type": "string"
+                          },
+                          "version": {
+                            "type": "integer",
+                            "format": "int64"
+                          },
+                          "cluster_name": {
+                            "type": "string"
+                          },
+                          "node_version": {
+                            "type": "string"
+                          },
+                          "type": {
+                            "type": "string"
+                          },
+                          "notebook_handshake_status": {
+                            "type": "string",
+                            "enum": [
+                              "CMC_UPGRADE",
+                              "NODE_UPGRADE",
+                              "COMPATIBLE",
+                              "NODE_DOWN",
+                              "NOT_COMPATIBLE"
+                            ]
+                          },
+                          "status": {
+                            "type": "string",
+                            "enum": [
+                              "Stopped",
+                              "Started",
+                              "Error"
+                            ]
+                          }
+                        }
+                      },
+                      "config": {
+                        "type": "object",
+                        "additionalProperties": {
+                          "type": "object",
+                          "properties": {
+                            "displayName": {
+                              "type": "string"
+                            },
+                            "currentValue": {
+                              "type": "string"
+                            },
+                            "dirtyValue": {
+                              "type": "string"
+                            },
+                            "dirty": {
+                              "type": "boolean"
+                            },
+                            "requiresRestart": {
+                              "type": "boolean"
+                            },
+                            "readOnly": {
+                              "type": "boolean",
+                              "default": false
+                            },
+                            "dependsOn": {
+                              "type": "string"
+                            },
+                            "displayOrder": {
+                              "type": "integer"
+                            },
+                            "defaultValue": {
+                              "type": "string"
+                            },
+                            "hasMinimum": {
+                              "type": "boolean"
+                            },
+                            "hasMaximum": {
+                              "type": "boolean"
+                            },
+                            "minimumValue": {
+                              "type": "integer"
+                            },
+                            "maximumValue": {
+                              "type": "integer"
+                            },
+                            "type": {
+                              "type": "string"
+                            },
+                            "helpMessage": {
+                              "type": "string"
+                            },
+                            "allowedValues": {
+                              "type": "array",
+                              "items": {
+                                "type": "string"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "nullable": true
+                },
+                "connectors": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "connectorName": {
+                        "type": "string"
+                      },
+                      "connectorEnabled": {
+                        "type": "boolean",
+                        "default": false
+                      }
+                    }
+                  },
+                  "nullable": true
+                },
+                "tenants": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "string"
+                      },
+                      "id": {
+                        "type": "integer",
+                        "format": "int64"
+                      },
+                      "path": {
+                        "type": "string"
+                      },
+                      "enabled": {
+                        "type": "boolean"
+                      },
+                      "diskSpace": {
+                        "type": "object",
+                        "required": [
+                          "diskSpace",
+                          "unit"
+                        ],
+                        "properties": {
+                          "diskSpace": {
+                            "type": "string"
+                          },
+                          "unit": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "nullable": true
+                },
+                "validation_message": {
+                  "type": "object",
+                  "required": [
+                    "message",
+                    "id"
+                  ],
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    },
+                    "id": {
+                      "type": "integer",
+                      "format": "int64",
+                      "minimum": 1
+                    },
+                    "actionName": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "rectificationAction": {
+                      "type": "object",
+                      "required": [
+                        "names",
+                        "action"
+                      ],
+                      "properties": {
+                        "names": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          },
+                          "uniqueItems": true
+                        },
+                        "action": {
+                          "type": "string",
+                          "enum": [
+                            "start",
+                            "stop",
+                            "kill",
+                            "restart"
+                          ]
+                        },
+                        "props": {
+                          "type": "object",
+                          "additionalProperties": {
+                            "type": "string"
+                          },
+                          "nullable": true
+                        }
+                      },
+                      "nullable": true
+                    }
+                  },
+                  "nullable": true
+                },
+                "notebook_status": {
+                  "type": "string",
+                  "enum": [
+                    "Started",
+                    "Stopped",
+                    "Starting",
+                    "Stopping",
+                    "N/A"
+                  ],
+                  "nullable": true
+                },
+                "analytics_status": {
+                  "type": "string",
+                  "enum": [
+                    "Starting",
+                    "Started",
+                    "Stopping",
+                    "Stopped",
+                    "Error",
+                    "Processing",
+                    "Not Responding",
+                    "Stopping Tenants",
+                    "Starting Tenants",
+                    "Terminated Unexpectedly",
+                    "N/A"
+                  ],
+                  "nullable": true
+                },
+                "loader_status": {
+                  "type": "string",
+                  "enum": [
+                    "Starting",
+                    "Started",
+                    "Stopping",
+                    "Stopped",
+                    "Error",
+                    "Processing",
+                    "Not Responding",
+                    "Stopping Tenants",
+                    "Starting Tenants",
+                    "Terminated Unexpectedly",
+                    "N/A"
+                  ],
+                  "nullable": true
+                },
+                "zookeeper_mode": {
+                  "type": "string",
+                  "enum": [
+                    "Bundled",
+                    "External"
+                  ],
+                  "nullable": true
+                },
+                "zookeeper_status": {
+                  "type": "string",
+                  "enum": [
+                    "Started",
+                    "Stopped"
+                  ],
+                  "default": "Stopped",
+                  "nullable": true
+                },
+                "spark_status": {
+                  "type": "string",
+                  "enum": [
+                    "Started",
+                    "Stopped",
+                    "Not Configured"
+                  ],
+                  "default": "Stopped",
+                  "nullable": true
+                },
+                "db_status": {
+                  "type": "string",
+                  "enum": [
+                    "Started",
+                    "Stopped"
+                  ],
+                  "default": "Stopped",
+                  "nullable": true
+                },
+                "spark_mode": {
+                  "type": "string",
+                  "enum": [
+                    "None",
+                    "Bundled",
+                    "External"
+                  ],
+                  "nullable": true
+                },
+                "base_url": {
+                  "type": "string",
+                  "nullable": true
+                },
+                "type": {
+                  "type": "string",
+                  "enum": [
+                    "LOCAL",
+                    "CUSTOM"
+                  ],
+                  "nullable": true
+                },
+                "singleTenant": {
+                  "type": "boolean",
+                  "default": true,
+                  "nullable": true
+                }
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+]
